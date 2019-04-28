@@ -1,0 +1,31 @@
+<script src="../underscore.js"></script>
+
+<script>
+const {log} = console
+
+const existy = e => e !== null
+
+const truthy = v => existy(v) && v !== false
+
+const nums = [1, 2, 3, null, 5]
+
+// 값이 존재하지 않는 상황을 지켜주는 함수
+log(
+    _.reduce(nums, (total, n) => total * n)
+)
+
+const fnull = (f, defaults) => {
+    return (...rest) => {
+        let args = _.map(rest, (e, i) => {
+            return existy(e) ? e : defaults
+        })
+
+        return f.apply(null, args)
+    }
+}
+
+const safeMul = fnull((t, n) => t * n, 1)
+
+log(_.reduce(nums, safeMul))
+
+</script>

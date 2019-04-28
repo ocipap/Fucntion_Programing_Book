@@ -1,0 +1,34 @@
+<script src="../underscore.js"></script>
+
+<script>
+const {log} = console
+
+// 특정 값을 반복한다.
+const repeat = (t, v) => _.map(_.range(t), _ => v)
+
+log(repeat(5, "hello"))
+
+// 특정 행동 즉 함수를 반복한다.
+const repeatedly = (t, f) => _.map(_.range(t), f)
+
+log(repeatedly(5, _ => "hello"))
+
+// 더욱 일반화 시켜라. 값 대신 함수를 받아라
+
+const iterateUntil = (f, check, init) => {
+    let res = []
+    let result = f(init)
+
+    while (check(result)){
+        res.push(result)
+        result = f(result)
+    }
+
+    return res
+}
+
+log(
+    iterateUntil(n => n + n, n => n < 1024, 2)
+)
+
+</script>

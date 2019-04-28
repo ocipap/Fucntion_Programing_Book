@@ -1,0 +1,22 @@
+<script src="../underscore.js"></script>
+
+<script>
+    const {log} = console
+
+    const people = [
+        {name: "A", age:25},
+        {name: "B", age:85},
+        {name: "C", age:68},
+        {name: "D", age:63},
+        {name: "E", age:45},
+        {name: "F", age:75},
+    ]
+    log(_.max(people, p => p.age))
+
+    const best = (f, coll) => {
+        return _.reduce(coll, (x, y) => f(x, y) ? x: y)
+    }
+
+    log(best((x, y) => x > y, [1, 2, 3, 4,5]))
+
+</script>

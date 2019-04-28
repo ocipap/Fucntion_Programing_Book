@@ -1,0 +1,17 @@
+<script src="../underscore.js"></script>
+
+<script>
+const {log} = console
+
+const repeatedly = (t, f) => _.map(_.range(t), f)
+
+// 함수를 리턴하는 함수
+const always = v => _ => v
+
+log(
+    repeatedly(5, always("hello"))
+)
+
+// 함수를 이용하면 뜻이 더 명확해 진다.
+
+</script>
