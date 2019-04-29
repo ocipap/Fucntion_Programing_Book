@@ -1,0 +1,34 @@
+<script src="../underscore.js"></script>
+
+<script>
+    const {
+        log
+    } = console
+
+    const always = v => _ => v
+    const checker = (...validator) => {
+        return obj => {
+            return _.reduce(validator, (errs, check) => {
+                if (check(obj)) return errs
+                errs.push(check.message)
+                return errs
+            }, [])
+        }
+    }
+
+    const validator = (msg, fun) => {
+        f = (args) => fun(args)
+        f['message'] = msg
+        return f
+    }
+
+    const aMap = obj => _.isObject(obj)
+    let checkCommand = checker(validator("Must be a map", aMap))
+
+    log(
+        checkCommand({})
+    )
+    log(
+        checkCommand(12)
+    )
+</script>
