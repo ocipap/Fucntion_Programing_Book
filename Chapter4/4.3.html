@@ -17,18 +17,28 @@
     }
 
     const validator = (msg, fun) => {
-        f = (args) => fun(args)
+        const f = (args) => fun(args)
         f['message'] = msg
         return f
     }
 
+    const hasKeys = (...rest) => {
+        const f = obj => _.every(rest, k => _.has(obj, k))
+        f.message = "Must have values for keys : " + rest.join(" ")
+        return f
+    }
+    
     const aMap = obj => _.isObject(obj)
-    let checkCommand = checker(validator("Must be a map", aMap))
+    let checkCommand = checker(validator("Must be a map", aMap), hasKeys("msg", "type"))
 
+
+    log(
+        checkCommand(12)
+    )
     log(
         checkCommand({})
     )
     log(
-        checkCommand(12)
+        checkCommand({msg: "hello",  type: "object"})
     )
 </script>
