@@ -1,0 +1,12 @@
+<script src="../underscore.js"></script>
+
+<script>
+const {log} = console
+const curry = f => arg => f(arg)
+
+const curry2 = f => arg2 => arg1 => f(arg1, arg2)
+
+log(
+    ["11", "11", "11", "11"].map(curry(parseInt))
+)
+</script>
