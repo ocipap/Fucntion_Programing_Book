@@ -1,0 +1,58 @@
+<script src="../underscore.js"></script>
+
+<script>
+  const {
+    log
+  } = console
+
+  const fail = e => new Error(e)
+
+  const existy = e => e != null
+
+  const doWhen = (flag, f) => flag ? f() : undefined
+
+  const invoker = (name, method) => {
+    return (...target) => {
+      if(!existy(target[0])) fail("Must provide a target")
+
+      const targetMethod = target[0][name]
+
+      return doWhen(existy(targetMethod) && method === targetMethod, () => {
+        return targetMethod.apply(target[0], target)
+      })
+    }
+  }
+
+  const dispatch = (...funcs) => {
+    return (...args) => {
+      let ret = undefined
+      for (const func of funcs) {
+        ret = func.apply(func, args)
+        if (existy(ret)) return ret
+      }
+      return ret
+    }
+  }
+
+  const stringReverse = (s) => _.isString(s) ? s.split("").reverse().join("") : undefined
+
+  const str = dispatch(invoker('toString', Array.prototype.toString), invoker('toString', String.prototype.toString))
+  const rev = dispatch(invoker("reverse", Array.prototype.reverse), stringReverse)
+  log(
+    str("a")
+  )
+
+  log(
+    str(_.range(10))
+  )
+
+  log(
+    rev([1, 2, 3, 4])
+  )
+
+  log(
+    rev("hello")
+  )
+
+
+</script>
