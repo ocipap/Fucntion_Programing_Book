@@ -1,0 +1,23 @@
+<script src="../underscore.js"></script>
+
+<script>
+const plays = [
+    {artist: "c", track: "hello pen"},
+    {artist: "a", track: "hello"},
+    {artist: "b", track: "hello pott"},
+    {artist: "c", track: "hello pencil"},
+    {artist: "a", track: "hello"},
+    {artist: "b", track: "hello pott"},
+]
+
+const {log} = console
+const curry = f => arg => f(arg)
+
+const curry2 = f => arg2 => arg1 => f(arg1, arg2)
+
+const songToString = song => [song.artist, song.track].join(" - ")
+const songCount = curry2(_.countBy)(songToString)
+log(
+    songCount(plays)
+)
+</script>
